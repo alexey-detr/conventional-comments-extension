@@ -1,5 +1,15 @@
-// Conventional Comment prefixes
-const PREFIXES = [
+type CommentPrefix =
+  | "praise"
+  | "nitpick"
+  | "suggestion"
+  | "issue"
+  | "todo"
+  | "question"
+  | "thought"
+  | "chore"
+  | "note";
+
+const PREFIXES: CommentPrefix[] = [
   "praise",
   "nitpick",
   "suggestion",
@@ -11,75 +21,62 @@ const PREFIXES = [
   "note",
 ];
 
-function addConventionalCommentBar(node) {
-  // Find the comment box header
+function addConventionalCommentBar(node: Element): void {
   const commentHeader = node.querySelector(".CommentBox-header");
-
   if (!commentHeader) return;
 
-  // Create prefix container
   const prefixContainer = document.createElement("div");
   prefixContainer.className = "conventional-comment-prefixes";
 
-  // Create prefix buttons
   PREFIXES.forEach((prefix) => {
     const prefixButton = document.createElement("button");
-    prefixButton.textContent = prefix + ":";
+    prefixButton.textContent = `${prefix}:`;
     prefixButton.className = "conventional-comment-prefix";
     prefixButton.type = "button";
 
-    prefixButton.addEventListener("click", (event) => {
-      // Find the comment field
+    prefixButton.addEventListener("click", () => {
       const commentField =
-        commentHeader.parentElement.querySelector(".js-comment-field");
-
-      if (commentField) {
-        // Remove existing prefixes
-        const currentValue = commentField.value;
-        const cleanedValue = currentValue.replace(
-          /^(praise|nitpick|suggestion|issue|todo|question|thought|chore|note):\s*/i,
-          ""
+        commentHeader.parentElement?.querySelector<HTMLTextAreaElement>(
+          ".js-comment-field"
         );
+      if (!commentField) return;
 
-        // Add new prefix
-        commentField.value = `${prefix}: ${cleanedValue.trim()}`;
+      const cleanedValue = commentField.value.replace(
+        /^(praise|nitpick|suggestion|issue|todo|question|thought|chore|note):\s*/i,
+        ""
+      );
 
-        // Trigger any necessary events (like input or change)
-        commentField.dispatchEvent(new Event("input", { bubbles: true }));
-        commentField.dispatchEvent(new Event("change", { bubbles: true }));
+      commentField.value = `${prefix}: ${cleanedValue.trim()}`;
+      commentField.dispatchEvent(new Event("input", { bubbles: true }));
+      commentField.dispatchEvent(new Event("change", { bubbles: true }));
 
-        setTimeout(() => {
-          commentField.focus();
-        }, 100);
-      }
+      setTimeout(() => {
+        commentField.focus();
+      }, 100);
     });
 
     prefixContainer.appendChild(prefixButton);
   });
 
-  // Insert the prefix container after the comment header
   commentHeader.insertAdjacentElement("afterend", prefixContainer);
 }
 
-// Run on page load and watch for dynamic content
-function init() {
-  // addConventionalCommentBar();
-
-  // Optional: Use a MutationObserver for dynamic content
+function init(): void {
   const observer = new MutationObserver((mutations) => {
-    mutations.forEach((mutation) => {
+    for (const mutation of mutations) {
       const nodes = Array.from(mutation.addedNodes);
+
       for (const node of nodes) {
         if (
-          node.nodeType === Node.ELEMENT_NODE &&
+          node instanceof Element &&
           node.tagName === "TR" &&
           node.classList.contains("js-inline-comments-container")
         ) {
           addConventionalCommentBar(node);
+          break;
         }
-        break;
       }
-    });
+    }
   });
 
   observer.observe(document.body, {
@@ -88,5 +85,4 @@ function init() {
   });
 }
 
-// Start the script
 init();

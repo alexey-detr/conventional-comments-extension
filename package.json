@@ -1,0 +1,19 @@
+{
+  "name": "conventional-comments-helper",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "build": "vite build",
+    "dev": "vite",
+    "check": "tsc --noEmit",
+    "test": "vitest"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@types/chrome": "^0.0.301",
+    "typescript": "^5.7.3",
+    "vite": "^6.1.0",
+    "vite-plugin-web-extension": "^4.4.3",
+    "vitest": "^3.0.5"
+  }
+}
