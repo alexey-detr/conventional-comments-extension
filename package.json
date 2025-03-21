@@ -7,7 +7,7 @@
     "dev": "vite",
     "check": "tsc --noEmit",
     "test": "vitest",
-    "pack": "npm run build && (cd dist && zip -r ../conventional-comments-helper-v$(node -p \"require('../package.json').version\").zip .)"
+    "pack": "npm version patch && npm run build && (cd dist && zip -r ../conventional-comments-helper-v$(node -p \"require('../package.json').version\").zip .)"
   },
   "dependencies": {},
   "devDependencies": {
