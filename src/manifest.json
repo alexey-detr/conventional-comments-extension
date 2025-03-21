@@ -10,5 +10,10 @@
       "js": ["src/content.ts"],
       "css": ["src/assets/styles.css"]
     }
-  ]
+  ],
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "revenge-allied-18@icloud.com"
+    }
+  }
 }
