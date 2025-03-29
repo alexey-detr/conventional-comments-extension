@@ -3,18 +3,13 @@
   "version": "1.0.1",
   "type": "module",
   "scripts": {
-    "build": "vite build",
-    "dev": "vite",
+    "build": "node update_manifest.js && bun build src/index.js --outdir=dist",
     "check": "tsc --noEmit",
-    "test": "vitest",
-    "pack": "npm run build && mkdir -p archives && (cd dist && zip -r ../archives/conventional-comments-helper-v$(node -p \"require('../package.json').version\").zip .)"
+    "pack": "bun run build && mkdir -p archives && (cd dist && zip -r ../archives/conventional-comments-helper-v$(node -p \"require('../package.json').version\").zip .)"
   },
   "dependencies": {},
   "devDependencies": {
     "@types/chrome": "^0.0.313",
-    "typescript": "^5.8.2",
-    "vite": "^6.2.3",
-    "vite-plugin-web-extension": "^4.4.3",
-    "vitest": "^3.0.9"
+    "typescript": "^5.8.2"
   }
 }
