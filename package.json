@@ -3,7 +3,7 @@
   "version": "1.0.1",
   "type": "module",
   "scripts": {
-    "build": "node update_manifest.js && bun build src/index.js --outdir=dist",
+    "build": "bun run update_manifest.ts && bun build src/index.js --outdir=dist",
     "check": "tsc --noEmit",
     "pack": "bun run build && mkdir -p archives && (cd dist && zip -r ../archives/conventional-comments-helper-v$(node -p \"require('../package.json').version\").zip .)"
   },
