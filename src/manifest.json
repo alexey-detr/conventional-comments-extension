@@ -3,12 +3,20 @@
   "name": "Conventional Comments Helper",
   "version": "1.0.1",
   "description": "Adds Conventional Comment prefixes to comment boxes",
-  "permissions": ["activeTab"],
+  "permissions": [
+    "activeTab"
+  ],
   "content_scripts": [
     {
-      "matches": ["*://github.com/*"],
-      "js": ["src/content.ts"],
-      "css": ["src/assets/styles.css"]
+      "matches": [
+        "*://github.com/*"
+      ],
+      "js": [
+        "index.js"
+      ],
+      "css": [
+        "assets/styles.css"
+      ]
     }
   ],
   "browser_specific_settings": {
